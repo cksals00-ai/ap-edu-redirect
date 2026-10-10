@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>질문과 답 — 코트메이트</title>
+<meta name="description" content="유소년 농구 학부모의 질문과 운영팀·코치의 답. 클럽 고르기, 비용, 대회, 포지션, 부상·성장, 용품, 진학.">
+<link rel="canonical" href="https://sports.apholdings.kr/qna/">
+<meta property="og:title" content="질문과 답 — 코트메이트"><meta property="og:description" content="유소년 농구 학부모의 질문과 운영팀·코치의 답. 클럽 고르기, 비용, 대회, 포지션, 부상·성장, 용품, 진학."><meta property="og:type" content="website"><meta property="og:url" content="https://sports.apholdings.kr/qna/"><meta property="og:site_name" content="CourtMate 코트메이트">
+<meta name="theme-color" content="#f26a1b">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/cm.css?v=1">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"CourtMate 코트메이트","url":"https://sports.apholdings.kr/","inLanguage":"ko","publisher":{"@type":"Organization","name":"A.P Holdings","url":"https://www.apholdings.kr/"}}</script>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 이동</a>
+<header class="hdr"><div class="wrap">
+<a class="logo" href="/"><span class="ball" aria-hidden="true"></span>코트메이트 <small>COURTMATE</small></a>
+<button class="menu-btn" aria-expanded="false" aria-controls="nav">메뉴</button>
+<nav class="nav" id="nav" aria-label="주 메뉴"><a href="/">Home</a><a href="/clubs/">클럽 찾기</a><a href="/events/">대회 캘린더</a><a href="/qna/" aria-current="page">질문과 답</a><a href="/about/">소개</a><a class="cta" href="/submit/">제보·질문하기</a></nav>
+</div></header>
+<main id="main">
+
+<section class="page-h"><div class="wrap"><h1>질문과 답</h1><p>부모들이 실제로 묻는 것들. 운영팀이 근거와 함께 1차 답을 달고, 확인된 코치의 답변이 붙습니다. 모든 답은 일반 안내이며 진단이나 특정 클럽 추천이 아닙니다.</p></div></section>
+<section class="section"><div class="wrap">
+<div class="filters" id="cats"><button class="chip" aria-pressed="true" data-c="">전체</button></div>
+<div class="list" id="qna"><div class="empty">불러오는 중…</div></div>
+<div class="btns" style="margin-top:24px"><a class="btn accent" href="/submit/?type=question">질문 올리기</a></div>
+</div></section>
+
+</main>
+<footer><div class="wrap">
+<span>© 2026 A.P Holdings · Sports</span>
+<a href="/about/">소개·운영 원칙</a>
+<a href="/privacy/">개인정보 처리방침</a>
+<a href="https://www.apholdings.kr/ko/sports/">AP Holdings Sports</a>
+<span class="sp">학부모가 올리고, 운영팀이 확인해 게시합니다.</span>
+</div></footer>
+<script src="/assets/cm.js?v=1"></script>
+<script>
+(async()=>{const box=document.getElementById('qna'),cb=document.getElementById('cats');let all=[];
+try{all=await CM.get('cm_questions_public','select=*&order=created_at.desc&limit=200');}catch(e){box.innerHTML='<div class="empty">잠시 후 다시 시도해 주세요.</div>';return;}
+Object.entries(CM.CAT).forEach(([k,v])=>{const n=all.filter(q=>q.category===k).length;if(!n)return;const b=document.createElement('button');b.className='chip';b.dataset.c=k;b.textContent=v+' ('+n+')';b.setAttribute('aria-pressed','false');cb.appendChild(b);});
+function render(c){const list=c?all.filter(q=>q.category===c):all;box.innerHTML=list.length?list.map(CM.qaItem).join(''):'<div class="empty">아직 없어요.</div>';}
+cb.addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;cb.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');render(b.dataset.c);});
+render('');})();
+</script>
+</body>
+</html>

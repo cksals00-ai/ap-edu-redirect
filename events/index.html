@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>대회 캘린더 — 코트메이트</title>
+<meta name="description" content="대한민국농구협회 디비전·종별대회, KBL Y리그, 지자체 유소년 농구 대회 일정. 학부모·주최 측 제보로 채워집니다.">
+<link rel="canonical" href="https://sports.apholdings.kr/events/">
+<meta property="og:title" content="대회 캘린더 — 코트메이트"><meta property="og:description" content="대한민국농구협회 디비전·종별대회, KBL Y리그, 지자체 유소년 농구 대회 일정. 학부모·주최 측 제보로 채워집니다."><meta property="og:type" content="website"><meta property="og:url" content="https://sports.apholdings.kr/events/"><meta property="og:site_name" content="CourtMate 코트메이트">
+<meta name="theme-color" content="#f26a1b">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/cm.css?v=1">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"CourtMate 코트메이트","url":"https://sports.apholdings.kr/","inLanguage":"ko","publisher":{"@type":"Organization","name":"A.P Holdings","url":"https://www.apholdings.kr/"}}</script>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 이동</a>
+<header class="hdr"><div class="wrap">
+<a class="logo" href="/"><span class="ball" aria-hidden="true"></span>코트메이트 <small>COURTMATE</small></a>
+<button class="menu-btn" aria-expanded="false" aria-controls="nav">메뉴</button>
+<nav class="nav" id="nav" aria-label="주 메뉴"><a href="/">Home</a><a href="/clubs/">클럽 찾기</a><a href="/events/" aria-current="page">대회 캘린더</a><a href="/qna/">질문과 답</a><a href="/about/">소개</a><a class="cta" href="/submit/">제보·질문하기</a></nav>
+</div></header>
+<main id="main">
+
+<section class="page-h"><div class="wrap"><h1>대회 캘린더</h1><p>협회·KBL·지자체·클럽 대회를 한 줄로 모읍니다. 출전 자격은 대회마다 다르니 공식 안내를 꼭 확인하세요.</p></div></section>
+<section class="section"><div class="wrap">
+<div class="sec-h"><h2>예정</h2><a href="/submit/?type=event">대회 제보 →</a></div>
+<div class="list" id="up"><div class="empty">불러오는 중…</div></div>
+<div class="sec-h" style="margin-top:40px"><h2>지난 대회</h2></div>
+<div class="list" id="past"><div class="empty">불러오는 중…</div></div>
+</div></section>
+
+</main>
+<footer><div class="wrap">
+<span>© 2026 A.P Holdings · Sports</span>
+<a href="/about/">소개·운영 원칙</a>
+<a href="/privacy/">개인정보 처리방침</a>
+<a href="https://www.apholdings.kr/ko/sports/">AP Holdings Sports</a>
+<span class="sp">학부모가 올리고, 운영팀이 확인해 게시합니다.</span>
+</div></footer>
+<script src="/assets/cm.js?v=1"></script>
+<script>
+(async()=>{const t=new Date().toISOString().slice(0,10);try{const up=await CM.get('cm_events_public','select=*&start_date=gte.'+t+'&order=start_date.asc');const past=await CM.get('cm_events_public','select=*&start_date=lt.'+t+'&order=start_date.desc&limit=30');
+document.getElementById('up').innerHTML=up.length?up.map(e=>CM.eventItem(e,false)).join(''):'<div class="empty">예정된 대회가 아직 없어요. 참가 요강을 받으셨다면 <a href="/submit/?type=event">제보</a>해 주세요.</div>';
+document.getElementById('past').innerHTML=past.length?past.map(e=>CM.eventItem(e,true)).join(''):'<div class="empty">없음</div>';}catch(e){document.getElementById('up').innerHTML='<div class="empty">잠시 후 다시 시도해 주세요.</div>';document.getElementById('past').innerHTML='';}})();
+</script>
+</body>
+</html>

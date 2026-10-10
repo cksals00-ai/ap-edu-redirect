@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>제보·질문하기 — 코트메이트</title>
+<meta name="description" content="유소년 농구 클럽 제보·등록, 대회 제보, 학부모 질문. 회원 가입 없이 올리고 운영팀이 확인해 게시합니다.">
+<link rel="canonical" href="https://sports.apholdings.kr/submit/">
+<meta property="og:title" content="제보·질문하기 — 코트메이트"><meta property="og:description" content="유소년 농구 클럽 제보·등록, 대회 제보, 학부모 질문. 회원 가입 없이 올리고 운영팀이 확인해 게시합니다."><meta property="og:type" content="website"><meta property="og:url" content="https://sports.apholdings.kr/submit/"><meta property="og:site_name" content="CourtMate 코트메이트">
+<meta name="theme-color" content="#f26a1b">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/cm.css?v=1">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"CourtMate 코트메이트","url":"https://sports.apholdings.kr/","inLanguage":"ko","publisher":{"@type":"Organization","name":"A.P Holdings","url":"https://www.apholdings.kr/"}}</script>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 이동</a>
+<header class="hdr"><div class="wrap">
+<a class="logo" href="/"><span class="ball" aria-hidden="true"></span>코트메이트 <small>COURTMATE</small></a>
+<button class="menu-btn" aria-expanded="false" aria-controls="nav">메뉴</button>
+<nav class="nav" id="nav" aria-label="주 메뉴"><a href="/">Home</a><a href="/clubs/">클럽 찾기</a><a href="/events/">대회 캘린더</a><a href="/qna/">질문과 답</a><a href="/about/">소개</a><a class="cta" href="/submit/">제보·질문하기</a></nav>
+</div></header>
+<main id="main">
+
+<section class="page-h"><div class="wrap"><h1>제보·질문하기</h1><p>회원 가입이 없습니다. 올리신 내용은 운영팀이 24시간 안에 확인하고 게시합니다. 아이의 실명·사진·학교명은 적지 말아 주세요.</p></div></section>
+<section class="section"><div class="wrap">
+<div class="tabs" role="tablist"><button class="chip" role="tab" data-t="club" aria-pressed="true">클럽 제보·등록</button><button class="chip" role="tab" data-t="event" aria-pressed="false">대회 제보</button><button class="chip" role="tab" data-t="question" aria-pressed="false">질문</button></div>
+
+<form class="form-card" id="f-club" data-table="cm_clubs">
+<p style="margin-top:0;color:var(--muted);font-size:14.5px">다니는 클럽, 운영하는 클럽 모두 환영합니다. 평가·후기는 받지 않고 사실 항목만 받습니다.</p>
+<label>클럽 이름</label><input name="name" required maxlength="80" placeholder="예: ○○농구교실 (지점)">
+<div class="row2"><div><label>지역</label><select name="region" required><option value="">선택</option><option>서울</option><option>경기</option><option>인천</option><option>강원</option><option>충북</option><option>충남</option><option>대전</option><option>세종</option><option>전북</option><option>전남</option><option>광주</option><option>경북</option><option>경남</option><option>대구</option><option>울산</option><option>부산</option><option>제주</option></select></div><div><label>시·군·구 <span class="opt">(선택)</span></label><input name="district" maxlength="40" placeholder="예: 고양"></div></div>
+<label>주소·체육관 <span class="opt">(선택)</span></label><input name="address" maxlength="160">
+<div class="row2"><div><label>연령 <span class="opt">(선택)</span></label><input name="age_range" maxlength="60" placeholder="예: 초1~중3"></div><div><label>요일·시간 <span class="opt">(선택)</span></label><input name="days" maxlength="80" placeholder="예: 화·목 17:00, 토 10:00"></div></div>
+<div class="row2"><div><label>회비 범위 <span class="opt">(선택)</span></label><input name="fee_range" maxlength="60" placeholder="예: 월 15~20만 원 (주 2회)"></div><div><label>레벨 <span class="opt">(선택)</span></label><input name="level" maxlength="60" placeholder="예: 입문·취미 / 선수반"></div></div>
+<div class="row2"><div><label>체험 수업</label><select name="trial"><option value="">모름</option><option value="true">가능</option><option value="false">없음</option></select></div><div><label>홈페이지·블로그 <span class="opt">(선택)</span></label><input name="website" maxlength="200" placeholder="https://"></div></div>
+<label>설명 <span class="opt">(선택, 사실만)</span></label><textarea name="description" maxlength="1200" placeholder="코치 수, 코트, 유니폼·대회비 별도 여부 등"></textarea>
+<div class="row2"><div><label>나는</label><select name="submitted_by"><option value="parent">학부모</option><option value="club">클럽 운영자</option><option value="coach">코치</option><option value="other">기타</option></select></div><div><label>이메일 <span class="opt">(선택, 확인 문의용·비공개)</span></label><input name="contact_email" type="email" maxlength="120"></div></div>
+<input class="hp" name="website_url" tabindex="-1" autocomplete="off">
+<label style="font-weight:400"><input type="checkbox" required style="width:auto;margin-right:6px">사실 정보만 적었고, 개인정보 처리방침에 동의합니다.</label>
+<div class="btns" style="margin-top:16px"><button class="btn primary" type="submit">제보 보내기</button></div>
+<div class="msg" role="status"></div>
+</form>
+
+<form class="form-card" id="f-event" data-table="cm_events" hidden>
+<label>대회 이름</label><input name="title" required maxlength="120">
+<div class="row2"><div><label>주최 <span class="opt">(선택)</span></label><input name="organizer" maxlength="80"></div><div><label>지역 <span class="opt">(선택)</span></label><input name="region" maxlength="20"></div></div>
+<div class="row2"><div><label>시작일</label><input name="start_date" type="date" required></div><div><label>종료일 <span class="opt">(선택)</span></label><input name="end_date" type="date"></div></div>
+<label>장소 <span class="opt">(선택)</span></label><input name="venue" maxlength="120">
+<label>대상 <span class="opt">(선택)</span></label><input name="age_groups" maxlength="80" placeholder="예: U10·U12, 클럽 단위">
+<label>공식 안내 링크 <span class="opt">(선택)</span></label><input name="url" maxlength="300" placeholder="https://">
+<label>설명 <span class="opt">(선택)</span></label><textarea name="description" maxlength="1200" placeholder="참가비, 접수 기간, 경기 방식 등"></textarea>
+<div class="row2"><div><label>나는</label><select name="submitted_by"><option value="parent">학부모</option><option value="organizer">주최 측</option><option value="club">클럽</option><option value="coach">코치</option><option value="other">기타</option></select></div><div><label>이메일 <span class="opt">(선택, 비공개)</span></label><input name="contact_email" type="email" maxlength="120"></div></div>
+<input class="hp" name="website_url" tabindex="-1" autocomplete="off">
+<label style="font-weight:400"><input type="checkbox" required style="width:auto;margin-right:6px">개인정보 처리방침에 동의합니다.</label>
+<div class="btns" style="margin-top:16px"><button class="btn primary" type="submit">제보 보내기</button></div>
+<div class="msg" role="status"></div>
+</form>
+
+<form class="form-card" id="f-question" data-table="cm_questions" hidden>
+<p style="margin-top:0;color:var(--muted);font-size:14.5px">운영팀이 근거와 함께 1차 답을 달고, 확인된 코치의 답변이 붙습니다. 부상은 「병원 신호」까지만 안내합니다.</p>
+<label>분류</label><select name="category" required><option value="club">클럽 고르기</option><option value="cost">비용·시간</option><option value="tournament">대회</option><option value="position">포지션·체격</option><option value="injury">부상·성장</option><option value="gear">용품</option><option value="school">진학</option><option value="other">기타</option></select>
+<label>질문 제목</label><input name="title" required minlength="4" maxlength="120" placeholder="한 줄로">
+<label>내용</label><textarea name="body" required minlength="10" maxlength="2000" placeholder="아이 학년, 농구 경력, 상황을 적어 주시면 답이 정확해집니다. 실명·학교명은 빼 주세요."></textarea>
+<div class="row2"><div><label>별명 <span class="opt">(선택, 공개)</span></label><input name="nickname" maxlength="20"></div><div><label>이메일 <span class="opt">(선택, 답변 알림·비공개)</span></label><input name="contact_email" type="email" maxlength="120"></div></div>
+<input class="hp" name="website_url" tabindex="-1" autocomplete="off">
+<label style="font-weight:400"><input type="checkbox" required style="width:auto;margin-right:6px">질문이 공개 게시되는 것과 개인정보 처리방침에 동의합니다.</label>
+<div class="btns" style="margin-top:16px"><button class="btn accent" type="submit">질문 올리기</button></div>
+<div class="msg" role="status"></div>
+</form>
+</div></section>
+
+</main>
+<footer><div class="wrap">
+<span>© 2026 A.P Holdings · Sports</span>
+<a href="/about/">소개·운영 원칙</a>
+<a href="/privacy/">개인정보 처리방침</a>
+<a href="https://www.apholdings.kr/ko/sports/">AP Holdings Sports</a>
+<span class="sp">학부모가 올리고, 운영팀이 확인해 게시합니다.</span>
+</div></footer>
+<script src="/assets/cm.js?v=1"></script>
+<script>
+(()=>{const tabs=document.querySelectorAll('[role=tab]');function show(t){tabs.forEach(b=>b.setAttribute('aria-pressed',b.dataset.t===t));['club','event','question'].forEach(k=>document.getElementById('f-'+k).hidden=(k!==t));}
+tabs.forEach(b=>b.addEventListener('click',()=>show(b.dataset.t)));const p=new URLSearchParams(location.search).get('type');if(['club','event','question'].includes(p))show(p);
+document.querySelectorAll('form[data-table]').forEach(f=>f.addEventListener('submit',async e=>{e.preventDefault();const msg=f.querySelector('.msg'),btn=f.querySelector('button[type=submit]');msg.className='msg';
+const fd=new FormData(f);if(fd.get('website_url')){msg.className='msg ok';msg.textContent='접수되었습니다.';return;}
+const row={};for(const [k,v] of fd.entries()){if(k==='website_url')continue;const s=String(v).trim();if(s==='')continue;row[k]=(k==='trial')?(s==='true'):s;}
+btn.disabled=true;try{await CM.post(f.dataset.table,row);f.reset();msg.className='msg ok';msg.textContent='접수되었습니다. 운영팀이 확인한 뒤 게시됩니다. 고맙습니다.';}catch(err){msg.className='msg err';msg.textContent='보내지 못했어요. 입력값을 확인하고 다시 시도해 주세요. ('+err.message+')';}btn.disabled=false;}));})();
+</script>
+</body>
+</html>

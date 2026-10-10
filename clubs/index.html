@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>클럽 찾기 — 코트메이트</title>
+<meta name="description" content="지역·연령·요일·회비 범위·체험 여부로 보는 유소년 농구 클럽 목록. 학부모 제보로 채워집니다.">
+<link rel="canonical" href="https://sports.apholdings.kr/clubs/">
+<meta property="og:title" content="클럽 찾기 — 코트메이트"><meta property="og:description" content="지역·연령·요일·회비 범위·체험 여부로 보는 유소년 농구 클럽 목록. 학부모 제보로 채워집니다."><meta property="og:type" content="website"><meta property="og:url" content="https://sports.apholdings.kr/clubs/"><meta property="og:site_name" content="CourtMate 코트메이트">
+<meta name="theme-color" content="#f26a1b">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/cm.css?v=1">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"CourtMate 코트메이트","url":"https://sports.apholdings.kr/","inLanguage":"ko","publisher":{"@type":"Organization","name":"A.P Holdings","url":"https://www.apholdings.kr/"}}</script>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 이동</a>
+<header class="hdr"><div class="wrap">
+<a class="logo" href="/"><span class="ball" aria-hidden="true"></span>코트메이트 <small>COURTMATE</small></a>
+<button class="menu-btn" aria-expanded="false" aria-controls="nav">메뉴</button>
+<nav class="nav" id="nav" aria-label="주 메뉴"><a href="/">Home</a><a href="/clubs/" aria-current="page">클럽 찾기</a><a href="/events/">대회 캘린더</a><a href="/qna/">질문과 답</a><a href="/about/">소개</a><a class="cta" href="/submit/">제보·질문하기</a></nav>
+</div></header>
+<main id="main">
+
+<section class="page-h"><div class="wrap"><h1>클럽 찾기</h1><p>지역을 고르세요. 목록은 학부모·클럽의 제보로 채워지고 운영팀이 확인한 뒤 게시됩니다. 평가·순위는 없고 사실 정보만 있습니다.</p></div></section>
+<section class="section"><div class="wrap">
+<div class="filters" id="regions"><button class="chip" aria-pressed="true" data-r="">전체</button></div>
+<div class="list" id="clubs"><div class="empty">불러오는 중…</div></div>
+<p class="note">다니는 클럽이 없거나 정보가 다르면 <a href="/submit/?type=club">제보</a>해 주세요. 클럽·코치가 직접 등록해도 됩니다(무료).</p>
+</div></section>
+
+</main>
+<footer><div class="wrap">
+<span>© 2026 A.P Holdings · Sports</span>
+<a href="/about/">소개·운영 원칙</a>
+<a href="/privacy/">개인정보 처리방침</a>
+<a href="https://www.apholdings.kr/ko/sports/">AP Holdings Sports</a>
+<span class="sp">학부모가 올리고, 운영팀이 확인해 게시합니다.</span>
+</div></footer>
+<script src="/assets/cm.js?v=1"></script>
+<script>
+(async()=>{const box=document.getElementById('clubs'),rb=document.getElementById('regions');let all=[];
+try{all=await CM.get('cm_clubs_public','select=*&order=premium.desc,region.asc,name.asc');}catch(e){box.innerHTML='<div class="empty">잠시 후 다시 시도해 주세요.</div>';return;}
+const regs=[...new Set(all.map(c=>c.region))];regs.forEach(r=>{const b=document.createElement('button');b.className='chip';b.dataset.r=r;b.textContent=r+' ('+all.filter(c=>c.region===r).length+')';b.setAttribute('aria-pressed','false');rb.appendChild(b);});
+function render(r){const list=r?all.filter(c=>c.region===r):all;box.innerHTML=list.length?list.map(CM.clubItem).join(''):'<div class="empty">이 지역은 아직 제보가 없어요. <a href="/submit/?type=club">첫 제보</a>를 부탁드려요.</div>';}
+rb.addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;rb.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');render(b.dataset.r);});
+render('');})();
+</script>
+</body>
+</html>
