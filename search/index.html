@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>검색 — 코트메이트</title>
+<meta name="description" content="코트메이트 통합 검색: 글, 학교, 선수, 질문, 클럽, 대회.">
+<link rel="canonical" href="https://sports.apholdings.kr/search/">
+<meta property="og:title" content="검색 — 코트메이트"><meta property="og:description" content="코트메이트 통합 검색: 글, 학교, 선수, 질문, 클럽, 대회."><meta property="og:type" content="website"><meta property="og:url" content="https://sports.apholdings.kr/search/"><meta property="og:site_name" content="CourtMate 코트메이트">
+<meta name="theme-color" content="#f26a1b">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/cm.css?v=2.1">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"CourtMate 코트메이트","url":"https://sports.apholdings.kr/","inLanguage":"ko","potentialAction":{"@type":"SearchAction","target":"https://sports.apholdings.kr/search/?q={q}","query-input":"required name=q"},"publisher":{"@type":"Organization","name":"A.P Holdings","url":"https://www.apholdings.kr/"}}</script>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 이동</a>
+<header class="hdr"><div class="wrap">
+<a class="logo" href="/"><span class="ball" aria-hidden="true"></span>코트메이트 <small>COURTMATE</small></a>
+<form class="sf srch" role="search"><input type="search" placeholder="선수·학교·클럽·글 검색" aria-label="검색"><button type="submit">검색</button></form>
+<button class="menu-btn" aria-expanded="false" aria-controls="nav">메뉴</button>
+<nav class="nav" id="nav" aria-label="주 메뉴"><form class="sf m-srch" role="search"><input type="search" placeholder="선수·학교·클럽·글 검색" aria-label="검색"><button type="submit">검색</button></form><a href="/">홈</a><a href="/board/">게시판</a><a href="/clubs/">클럽</a><a href="/events/">대회</a><a href="/qna/">질문과 답</a><a href="/schools/">학교 백과</a><a href="/players/">선수 백과</a><a class="cta" href="/submit/">글쓰기·제보</a></nav>
+</div></header>
+<main id="main">
+
+<section class="page-h"><div class="wrap"><h1>검색</h1><form class="sf" role="search" style="max-width:520px;display:flex;gap:8px;margin-top:10px"><input id="q" type="search" placeholder="선수·학교·클럽·대회·글" aria-label="검색어"><button class="btn primary" type="submit">검색</button></form></div></section>
+<section class="section"><div class="wrap rslt" id="r"><div class="empty">검색어를 입력하세요.</div></div></section>
+
+</main>
+<footer><div class="wrap">
+<span>© 2026 A.P Holdings · Sports</span>
+<a href="/about/">소개·운영 원칙</a>
+<a href="/privacy/">개인정보 처리방침</a>
+<a href="https://www.apholdings.kr/ko/sports/">AP Holdings Sports</a>
+<span class="sp">학부모가 올리고, 운영팀이 확인해 게시합니다.</span>
+</div></footer>
+<script src="/assets/cm.js?v=2"></script>
+<script>
+(async()=>{const q=CM.qp('q');const r=document.getElementById('r');document.getElementById('q').value=q;if(!q)return;document.title=q+' — 검색 · 코트메이트';r.innerHTML='<div class="empty">찾는 중…</div>';
+try{const rows=await CM.rpc('cm_search',{q});if(!rows.length){r.innerHTML='<div class="empty">「'+CM.E(q)+'」 결과가 없어요. 아시는 내용이면 <a href="/submit/">제보</a>해 주세요.</div>';return;}
+const G={player:['선수','/players/?id='],school:['학교','/schools/?id='],post:['글','/board/?id='],qna:['질문과 답','/qna/'],club:['클럽','/clubs/'],event:['대회','/events/']};let h='';
+for(const k of ['player','school','post','qna','club','event']){const l=rows.filter(x=>x.kind===k);if(!l.length)continue;h+='<h3>'+G[k][0]+' '+l.length+'</h3><div class="list">'+l.map(x=>'<a class="post" href="'+G[k][1]+(k==='qna'||k==='club'||k==='event'?'':x.id)+'"><h3>'+CM.E(x.title)+'</h3><p class="ex">'+CM.E(x.snippet||'')+'</p></a>').join('')+'</div>';}
+r.innerHTML=h;}catch(e){r.innerHTML='<div class="empty">잠시 후 다시 시도해 주세요.</div>';}})();
+</script>
+</body>
+</html>
