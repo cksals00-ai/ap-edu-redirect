@@ -35,7 +35,7 @@
 </header>
 <main id="main">
 
-<section class="pagetop"><div class="pagetop__bg"><img src="/assets/img/dark-gym.jpg" alt=""></div><div class="wrap pagetop__in"><p class="crumb"><a href="/">COURTMATE</a> / <b>농구화 찾기</b></p><h1>농구화 찾기</h1><p>아이 발 사이즈를 고르면 그 사이즈로 나오는 농구화를 보여줘요. 가격 버튼을 누르면 각 판매처의 지금 검색 결과로 바로 이동합니다.</p></div></section>
+<section class="pagetop"><div class="pagetop__bg"><img src="/assets/img/dark-gym.jpg" alt=""></div><div class="wrap pagetop__in"><p class="crumb"><a href="/">COURTMATE</a> / <b>농구화 찾기</b></p><h1>농구화 찾기</h1><p>아이 발 사이즈를 고르면 그 사이즈로 나오는 농구화를 보여줘요. 판매처 버튼은 운영팀이 품번·모델명을 직접 확인한 상품 페이지로 연결돼요.</p></div></section>
 <section class="section"><div class="wrap">
 <h2 class="h-sec" style="margin:0 0 6px">발 사이즈 (mm)</h2>
 <div class="sizes" id="sizes"></div>
@@ -44,7 +44,7 @@
 <div class="list" id="shoes"><div class="empty">사이즈를 골라 주세요.</div></div>
 <div class="note" style="margin-top:22px">
 <p><b>이렇게 보세요</b></p>
-<p>· 공식몰 가격은 운영팀이 확인한 시각 기준이에요. 판매처 버튼은 누르는 순간의 실시간 검색 결과로 이동합니다.</p>
+<p>· 가격은 운영팀이 확인한 날짜 기준이에요. 판매처 버튼은 품번·모델명을 확인한 상품 페이지로만 연결하고, 확인 못 한 판매처는 넣지 않아요. 같은 모델이라도 색상이 다를 수 있어요.</p>
 <p>· 사이즈별 재고는 판매처 화면에서 마지막으로 확인해 주세요. 사이즈 범위는 모델 기준이라 색상마다 품절이 다를 수 있어요.</p>
 <p>· 브랜드·품번 없이 모델 이름만 붙인 아주 싼 제품은 정품인지 알 수 없어요. 품번(예: IM6642-003)을 확인하세요.</p>
 <p>· KREAM은 개인 판매자끼리 거래하는 리셀 장터라 사이즈가 안 맞아도 단순 변심 반품이 안 돼요.</p>
@@ -70,10 +70,11 @@
 (async()=>{const E=CM.E,d=CM.d;const SZ=[];for(let s=165;s<=260;s+=5)SZ.push(s);
 const KIND={PS:'리틀키즈',GS:'주니어',adult:'성인'};const won=n=>n==null?'':n.toLocaleString('ko-KR')+'원';
 const enc=encodeURIComponent;
-const go=m=>{const q=m.q_search;return '<div class="go">'+(m.official_url?'<a class="main" href="'+E(m.official_url)+'" target="_blank" rel="noopener noreferrer nofollow">공식 판매처 ↗</a>':'')+
-'<a href="https://search.shopping.naver.com/search/all?query='+enc(q)+'" target="_blank" rel="noopener noreferrer nofollow">네이버쇼핑 최저가 ↗</a>'+
-'<a href="https://www.coupang.com/np/search?q='+enc(q)+'" target="_blank" rel="noopener noreferrer nofollow">쿠팡 ↗</a>'+
-'<a href="https://kream.co.kr/search?keyword='+enc(q)+'&tab=products" target="_blank" rel="noopener noreferrer nofollow">KREAM 시세 ↗</a></div>';};
+const offName=u=>/\/launch\//.test(u)?'나이키 SNKRS':/nike\.com/.test(u)?'나이키 공식몰':/underarmour/.test(u)?'언더아머 공식몰':'공식 판매처';
+const go=m=>{let h='';if(m.official_url)h+='<a class="main" href="'+E(m.official_url)+'" target="_blank" rel="noopener noreferrer nofollow">'+offName(m.official_url)+' ↗</a>';
+(m.links||[]).forEach(l=>{h+='<a href="'+E(l.url)+'" target="_blank" rel="noopener noreferrer nofollow" title="'+E(l.label||'')+'">'+E(l.retailer)+(l.price?' '+won(l.price):'')+' ↗</a>';});
+const notes=(m.links||[]).map(l=>'· '+E(l.retailer)+': '+E(l.label||'')+(l.ship?' — '+E(l.ship):'')+' ('+d(l.at)+' 확인)').join('<br>');
+return (h?'<div class="go">'+h+'</div>':'<p class="when">확인된 판매 페이지가 아직 없어요.</p>')+(notes?'<p class="when" style="margin-top:8px;line-height:1.6">'+notes+'</p>':'');};
 const eff=m=>m.chk_sale_price||m.chk_price||m.msrp||9e9;
 function card(m){let price;if(m.chk_price){price='<div class="price">'+(m.chk_sale_price?won(m.chk_sale_price)+'<s>'+won(m.chk_price)+'</s>':won(m.chk_price))+'</div><div class="when">공식몰 '+(m.sold_out?'품절':'판매 중')+' · '+d(m.checked_at)+' 확인</div>';}
 else{price='<div class="price">'+won(m.msrp)+'</div><div class="when">정가(참고) · 가격은 판매처에서 확인</div>';}
