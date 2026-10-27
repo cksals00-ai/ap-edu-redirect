@@ -159,9 +159,9 @@ try{const SZ=[180,190,200,210,220,230,240,250,255,260];document.getElementById('
  const ck=sh.filter(m=>m.checked_at),sale=ck.filter(m=>m.chk_sale_price&&!m.sold_out);const last=ck.map(m=>m.checked_at).sort().pop();
  if(sh.length)document.getElementById('shz-meta').textContent='등록 모델 '+sh.length+'개 · 공식몰 세일 중 '+sale.length+'개'+(last?' · '+d(last)+' 확인':'')+' · 매일 아침 확인';
  const lab={down:'가격 내림',up:'가격 올림',soldout:'품절',restock:'재입고'};
- const rows=ch.filter(c=>c.change).slice(0,3).map(c=>'<li><a href="/shoes/?size='+c.size_min+'"><span class="t">'+E(c.model_name)+' <small>'+(KD[c.kind]||'')+' '+c.size_min+'~'+c.size_max+'</small></span><span class="m"><b>'+lab[c.change]+'</b> '+(c.change==='soldout'?'':won(c.now_price))+'</span></a></li>');
+ const rows=ch.filter(c=>c.change).slice(0,3).map(c=>'<li><a href="/shoes/?size='+c.size_min+'"><span class="t">'+E(c.model_name)+' <small>'+(KD[c.kind]||'')+' '+c.size_min+'~'+c.size_max+'mm</small></span><span class="m"><b>'+lab[c.change]+'</b> '+(c.change==='soldout'?'':won(c.now_price))+'</span></a></li>');
  const pct=m=>Math.round((1-m.chk_sale_price/m.chk_price)*100);
- sale.filter(m=>!ch.some(c=>c.model_id===m.id)).sort((a,b)=>pct(b)-pct(a)).slice(0,5-rows.length).forEach(m=>rows.push('<li><a href="/shoes/?size='+m.size_min+'"><span class="t">'+E(m.model_name)+' <small>'+(KD[m.kind]||'')+' '+m.size_min+'~'+m.size_max+'</small></span><span class="m"><b>'+pct(m)+'%↓</b> '+won(m.chk_sale_price)+'</span></a></li>'));
+ sale.filter(m=>!ch.some(c=>c.model_id===m.id)).sort((a,b)=>pct(b)-pct(a)).slice(0,5-rows.length).forEach(m=>rows.push('<li><a href="/shoes/?size='+m.size_min+'"><span class="t">'+E(m.model_name)+' <small>'+(KD[m.kind]||'')+' '+m.size_min+'~'+m.size_max+'mm</small></span><span class="m"><b>'+pct(m)+'%↓</b> '+won(m.chk_sale_price)+'</span></a></li>'));
  document.getElementById('shz-list').innerHTML=rows.length?rows.join(''):'<li class="muted">사이즈를 골라 모델을 확인해 보세요.</li>';
 }catch(e){}
 })();
