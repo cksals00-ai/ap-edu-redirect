@@ -13,6 +13,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/cm.css?v=5">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"CourtMate 코트메이트","url":"https://sports.apholdings.kr/","inLanguage":"ko","potentialAction":{"@type":"SearchAction","target":"https://sports.apholdings.kr/search/?q={q}","query-input":"required name=q"},"publisher":{"@type":"Organization","name":"A.P Holdings","url":"https://www.apholdings.kr/"}}</script>
+<style>
+.shz{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:22px 32px;align-items:start;background:var(--white);border:1.5px solid var(--ink);border-radius:var(--r);box-shadow:var(--pop-xs);padding:22px 24px}
+.shz h2{margin:4px 0 6px;font-family:var(--f-display);font-weight:400;font-size:24px;letter-spacing:-.01em}
+.shz__sizes{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin:14px 0 14px}
+.shz__sizes .chip{justify-content:center;padding:8px 0;font-family:var(--f-mono)}
+.shz .plist .m b{color:var(--flag);font-weight:700}
+@media(max-width:760px){.shz{grid-template-columns:minmax(0,1fr);padding:18px}}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">본문으로 이동</a>
@@ -32,6 +40,7 @@
 <a class="sbd__row" href="/schools/"><span class="t">학교 백과</span><span class="v" id="sb-sc">—</span></a>
 <a class="sbd__row" href="/clubs/"><span class="t">클럽</span><span class="v" id="sb-cl">—</span></a>
 <a class="sbd__row" href="/events/"><span class="t">대회</span><span class="v" id="sb-ev">—</span></a>
+<a class="sbd__row" href="/shoes/"><span class="t">농구화</span><span class="v" id="sb-sh">—</span></a>
 <div class="sbd__note">실시간 집계 · 매일 아침 갱신</div></aside>
 <div class="hero__body"><p class="eyebrow">유소년 농구 정보 포털 · COURTMATE</p>
 <h1 class="display">그때 코트의 열기,<br>이제 <em>우리 아이 차례</em></h1>
@@ -48,6 +57,12 @@
 </div>
 <div class="bnr" id="bnr" aria-label="기획·안내"></div>
 </div></section>
+<section class="section" style="padding-top:0"><div class="wrap">
+<div class="shz" aria-label="농구화 찾기">
+<div><p class="eyebrow">GEAR · 농구화 찾기</p><h2>우리 아이 발 사이즈로 농구화 찾기</h2><p class="muted" id="shz-meta">공식몰 가격과 판매 여부를 운영팀이 매일 아침 확인해요.</p>
+<div class="shz__sizes" id="shz-sizes"></div><a class="btn btn--flag btn--sm" href="/shoes/">사이즈별 전체 보기 →</a></div>
+<div><h3 style="margin:0 0 4px;font-size:15px">오늘 볼 만한 농구화 <a class="more" href="/shoes/" style="float:right;font-size:12.5px">전체</a></h3><ul class="plist" id="shz-list"><li class="muted">불러오는 중…</li></ul></div>
+</div></div></section>
 <section class="section"><div class="wrap">
 <div class="pgrid">
 <div class="pcol"><h3><a href="/board/?c=news">대회·소식</a><a class="more" href="/board/?c=news">더 보기</a></h3><ul class="plist" id="c-news"></ul></div>
@@ -137,6 +152,18 @@ try{const c=V(P_c);li('h-clubs',c.map(x=>'<li><a href="/clubs/"><span class="t">
  const pick=p.filter(x=>(x.schools||[]).length).concat(p.filter(x=>!(x.schools||[]).length)).slice(0,6);
  li('h-pl',pick.map(x=>'<li><a href="/players/?id='+x.id+'"><span class="t">'+E(x.name)+' <small>'+E(x.current_team||'')+'</small></span><span class="m">'+E((x.schools||[]).length?(x.schools||[]).map(k=>k.school_name.replace(/(등학교|학교)$/,'')).slice(-2).join('–'):(x.position||''))+'</span></a></li>').join(''));
  document.getElementById('sb-pl').textContent=p.length;document.getElementById('sb-sc').textContent=s.length;document.getElementById('sb-cl').textContent=c.length>=6?c.length+'+':c.length;}catch(e){}
+try{const SZ=[180,190,200,210,220,230,240,250,255,260];document.getElementById('shz-sizes').innerHTML=SZ.map(z=>'<a class="chip" href="/shoes/?size='+z+'">'+z+'</a>').join('');
+ const [A,B]=await Promise.allSettled([CM.get('cm_shoes_public','select=id,model_name,kind,size_min,size_max,msrp,chk_price,chk_sale_price,sold_out,checked_at&order=sort_order.asc'),CM.get('cm_shoe_changes_public','select=*&order=checked_at.desc')]);
+ const sh=V(A),ch=V(B);const won=n=>n==null?'':n.toLocaleString('ko-KR')+'원';const KD={PS:'리틀키즈',GS:'주니어',adult:'성인'};
+ document.getElementById('sb-sh').textContent=sh.length;
+ const ck=sh.filter(m=>m.checked_at),sale=ck.filter(m=>m.chk_sale_price&&!m.sold_out);const last=ck.map(m=>m.checked_at).sort().pop();
+ if(sh.length)document.getElementById('shz-meta').textContent='등록 모델 '+sh.length+'개 · 공식몰 세일 중 '+sale.length+'개'+(last?' · '+d(last)+' 확인':'')+' · 매일 아침 확인';
+ const lab={down:'가격 내림',up:'가격 올림',soldout:'품절',restock:'재입고'};
+ const rows=ch.filter(c=>c.change).slice(0,3).map(c=>'<li><a href="/shoes/?size='+c.size_min+'"><span class="t">'+E(c.model_name)+' <small>'+(KD[c.kind]||'')+' '+c.size_min+'~'+c.size_max+'</small></span><span class="m"><b>'+lab[c.change]+'</b> '+(c.change==='soldout'?'':won(c.now_price))+'</span></a></li>');
+ const pct=m=>Math.round((1-m.chk_sale_price/m.chk_price)*100);
+ sale.filter(m=>!ch.some(c=>c.model_id===m.id)).sort((a,b)=>pct(b)-pct(a)).slice(0,5-rows.length).forEach(m=>rows.push('<li><a href="/shoes/?size='+m.size_min+'"><span class="t">'+E(m.model_name)+' <small>'+(KD[m.kind]||'')+' '+m.size_min+'~'+m.size_max+'</small></span><span class="m"><b>'+pct(m)+'%↓</b> '+won(m.chk_sale_price)+'</span></a></li>'));
+ document.getElementById('shz-list').innerHTML=rows.length?rows.join(''):'<li class="muted">사이즈를 골라 모델을 확인해 보세요.</li>';
+}catch(e){}
 })();
 </script>
 </body>

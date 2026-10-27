@@ -14,6 +14,8 @@
 <link rel="stylesheet" href="/assets/cm.css?v=5">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"CourtMate 코트메이트","url":"https://sports.apholdings.kr/","inLanguage":"ko","potentialAction":{"@type":"SearchAction","target":"https://sports.apholdings.kr/search/?q={q}","query-input":"required name=q"},"publisher":{"@type":"Organization","name":"A.P Holdings","url":"https://www.apholdings.kr/"}}</script>
 <style>
+.chg{margin:0 0 18px;padding:14px 16px;border:1.5px solid var(--ink);border-radius:var(--r);background:var(--white)}.chg b.t{display:block;font-size:14px;margin-bottom:6px}.chg ul{margin:0;padding-left:18px;font-size:13.5px;line-height:1.7}.chg .dn{color:var(--flag);font-weight:700}
+.off{display:inline-block;margin-left:6px;font-size:12px;font-weight:700;color:var(--flag)}
 .sizes{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:6px;margin:6px 0 18px}
 @media(max-width:760px){.sizes{grid-template-columns:repeat(5,minmax(0,1fr))}}
 .sizes .chip{justify-content:center;text-align:center;padding:8px 0;font-family:var(--f-mono)}
@@ -35,12 +37,13 @@
 </header>
 <main id="main">
 
-<section class="pagetop"><div class="pagetop__bg"><img src="/assets/img/dark-gym.jpg" alt=""></div><div class="wrap pagetop__in"><p class="crumb"><a href="/">COURTMATE</a> / <b>농구화 찾기</b></p><h1>농구화 찾기</h1><p>아이 발 사이즈를 고르면 그 사이즈로 나오는 농구화를 보여줘요. 판매처 버튼은 운영팀이 품번·모델명을 직접 확인한 상품 페이지로 연결돼요.</p></div></section>
+<section class="pagetop"><div class="pagetop__bg"><img src="/assets/img/dark-gym.jpg" alt=""></div><div class="wrap pagetop__in"><p class="crumb"><a href="/">COURTMATE</a> / <b>농구화 찾기</b></p><h1>농구화 찾기</h1><p>아이 발 사이즈를 고르면 그 사이즈로 나오는 농구화를 보여줘요. 판매처 버튼은 운영팀이 품번·모델명을 직접 확인한 상품 페이지로 연결돼요. 공식몰 가격·판매 여부는 매일 아침 다시 확인해요.</p></div></section>
 <section class="section"><div class="wrap">
 <h2 class="h-sec" style="margin:0 0 6px">발 사이즈 (mm)</h2>
 <div class="sizes" id="sizes"></div>
 <div class="filters" id="brands"></div>
 <p class="legend" id="summary"></p>
+<div class="chg" id="chg" hidden></div>
 <div class="list" id="shoes"><div class="empty">사이즈를 골라 주세요.</div></div>
 <div class="note" style="margin-top:22px">
 <p><b>이렇게 보세요</b></p>
@@ -76,24 +79,29 @@ const go=m=>{let h='';if(m.official_url)h+='<a class="main" href="'+E(m.official
 const notes=(m.links||[]).map(l=>'· '+E(l.retailer)+': '+E(l.label||'')+(l.ship?' — '+E(l.ship):'')+' ('+d(l.at)+' 확인)').join('<br>');
 return (h?'<div class="go">'+h+'</div>':'<p class="when">확인된 판매 페이지가 아직 없어요.</p>')+(notes?'<p class="when" style="margin-top:8px;line-height:1.6">'+notes+'</p>':'');};
 const eff=m=>m.chk_sale_price||m.chk_price||m.msrp||9e9;
-function card(m){let price;if(m.chk_price){price='<div class="price">'+(m.chk_sale_price?won(m.chk_sale_price)+'<s>'+won(m.chk_price)+'</s>':won(m.chk_price))+'</div><div class="when">공식몰 '+(m.sold_out?'품절':'판매 중')+' · '+d(m.checked_at)+' 확인</div>';}
+function card(m){let price;if(m.chk_price){price='<div class="price">'+(m.chk_sale_price?won(m.chk_sale_price)+'<s>'+won(m.chk_price)+'</s><span class="off">'+Math.round((1-m.chk_sale_price/m.chk_price)*100)+'% 할인</span>':won(m.chk_price))+'</div><div class="when">공식몰 '+(m.sold_out?'품절':'판매 중')+' · '+d(m.checked_at)+' 확인</div>';}
 else{price='<div class="price">'+won(m.msrp)+'</div><div class="when">정가(참고) · 가격은 판매처에서 확인</div>';}
 return '<article class="item shoe"><h3><span class="badge">'+KIND[m.kind]+'</span>'+E(m.model_name)+'</h3><div class="meta">'+E(m.brand)+' · '+E(m.line)+(m.style_code?' · '+E(m.style_code):'')+' · '+m.size_min+'~'+m.size_max+'mm</div>'+price+(m.note?'<p>'+E(m.note)+'</p>':'')+go(m)+'</article>';}
 const sb=document.getElementById('sizes'),bb=document.getElementById('brands'),box=document.getElementById('shoes'),sum=document.getElementById('summary');
 SZ.forEach(s=>{const b=document.createElement('button');b.className='chip';b.dataset.s=s;b.textContent=s;b.setAttribute('aria-pressed','false');sb.appendChild(b);});
 let all=[];try{all=await CM.get('cm_shoes_public','select=*&order=sort_order.asc');}catch(e){box.innerHTML='<div class="empty">잠시 후 다시 시도해 주세요.</div>';return;}
-const brands=['전체',...new Set(all.map(m=>m.brand))];let size=parseInt(CM.qp('size'))||0,brand='전체';
+const brands=['전체',...new Set(all.map(m=>m.brand)),'세일 중만'];let size=parseInt(CM.qp('size'))||0,brand='전체';
 brands.forEach(x=>{const b=document.createElement('button');b.className='chip';b.dataset.b=x;b.textContent=x;b.setAttribute('aria-pressed',x==='전체');bb.appendChild(b);});
 function render(){sb.querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.s===size));
 if(!size){box.innerHTML='<div class="empty">위에서 발 사이즈를 골라 주세요.</div>';sum.textContent='';return;}
-const ko={PS:0,GS:1,adult:2};let list=all.filter(m=>size>=m.size_min&&size<=m.size_max&&(brand==='전체'||m.brand===brand));
+const ko={PS:0,GS:1,adult:2};let list=all.filter(m=>size>=m.size_min&&size<=m.size_max&&(brand==='전체'||m.brand===brand||(brand==='세일 중만'&&m.chk_sale_price&&!m.sold_out)));
 list.sort((a,b)=>ko[a.kind]-ko[b.kind]||eff(a)-eff(b));
 sum.textContent=size+'mm로 나오는 모델 '+list.length+'개'+(size<=220?' · 200~220mm는 리틀키즈(PS) 사이즈예요.':size<=250?' · 225~250mm는 주니어(GS) 사이즈예요. 일부 성인 모델도 이 사이즈부터 나와요.':' · 250mm 이상은 성인 사이즈도 고를 수 있어요.');
 box.innerHTML=list.length?list.map(card).join(''):'<div class="empty">이 사이즈로 등록된 모델이 아직 없어요. <a href="/submit/?type=post">제보</a>해 주세요.</div>';
 const u=new URL(location);u.searchParams.set('size',size);history.replaceState(null,'',u);}
 sb.addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;size=+b.dataset.s;render();});
 bb.addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;brand=b.dataset.b;bb.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===b));render();});
-render();})();
+render();
+try{const ch=await CM.get('cm_shoe_changes_public','select=*&order=checked_at.desc');const box2=document.getElementById('chg');const last=all.map(m=>m.checked_at).filter(Boolean).sort().pop();
+const lab={down:'가격 내림',up:'가격 올림',soldout:'공식몰 품절',restock:'공식몰 재입고'};
+if(ch.length){box2.innerHTML='<b class="t">최근 7일 공식몰 변동 '+ch.length+'건'+(last?' · 마지막 확인 '+d(last):'')+'</b><ul>'+ch.slice(0,8).map(c=>'<li><a href="?size='+c.size_min+'">'+E(c.model_name)+'</a> — <span class="'+(c.change==='down'||c.change==='restock'?'dn':'')+'">'+lab[c.change]+'</span>'+(c.prev_price&&c.now_price&&c.change!=='soldout'?' '+won(c.prev_price)+' → '+won(c.now_price):'')+' ('+d(c.checked_at)+')</li>').join('')+'</ul>';box2.hidden=false;}
+else if(last){box2.innerHTML='<b class="t">공식몰 가격은 매일 아침 확인해요 · 마지막 확인 '+d(last)+'</b><ul><li>최근 7일 동안 가격·품절 변동이 없었어요.</li></ul>';box2.hidden=false;}}catch(e){}
+})();
 </script>
 </body>
 </html>
