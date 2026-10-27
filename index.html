@@ -126,18 +126,26 @@ const V=r=>r.status==='fulfilled'?r.value:[];
 const row=p=>'<li><a href="/board/?id='+p.id+'"><span class="t">'+E(p.title)+'</span><span class="m">'+d(p.created_at)+'</span></a></li>';
 const shown=new Set();
 try{const posts=V(P_posts);
- const lead=posts.find(p=>p.pinned)||posts.find(p=>p.category==='news')||posts[0];
+ const now=Date.now(),age=p=>(now-new Date(p.created_at))/864e5;
+ const byNew=[...posts].sort((a,b)=>String(b.created_at).localeCompare(String(a.created_at)));
+ /* 고정글은 7일까지만 헤드라인, 그 뒤엔 최신 소식 */
+ const lead=byNew.find(p=>p.pinned&&age(p)<7)||byNew.find(p=>p.category==='news')||byNew[0];
  if(lead){shown.add(lead.id);const L=document.getElementById('lead');L.href='/board/?id='+lead.id;L.querySelector('h2').textContent=lead.title;L.querySelector('p').textContent=lead.body.slice(0,160)+(lead.body.length>160?'…':'');L.querySelector('.meta').textContent=(CM.PCAT[lead.category]||'')+' · '+d(lead.created_at)+(lead.source?' · '+lead.source:'');}
  /* sub-stories: one per category first (variety), then newest */
- const subs=[];for(const c of ['training','food','school','gear','free','news']){const p=posts.find(x=>x.category===c&&!shown.has(x.id));if(p){subs.push(p);shown.add(p.id);}if(subs.length>=4)break;}
- for(const p of posts){if(subs.length>=4)break;if(!shown.has(p.id)){subs.push(p);shown.add(p.id);}}
+ /* sub-stories: 최근 7일 글 먼저(분류 골고루), 모자라면 예전 글로 채움 */
+ const subs=[],add=p=>{if(p&&subs.length<4&&!shown.has(p.id)){subs.push(p);shown.add(p.id);}};
+ const recent=byNew.filter(p=>age(p)<7),cats=['news','training','food','school','gear','free'];
+ for(const c of cats)add(recent.find(x=>x.category===c&&!shown.has(x.id)));
+ recent.forEach(add);
+ for(const c of cats)add(byNew.find(x=>x.category===c&&!shown.has(x.id)));
+ byNew.forEach(add);
  li('subs',subs.map(p=>'<a class="ss" href="/board/?id='+p.id+'"><span class="badge">'+E(CM.PCAT[p.category]||p.category)+'</span><b>'+E(p.title)+'</b><small>'+d(p.created_at)+'</small></a>').join(''));
  /* category columns: skip what the headline block already shows */
- for(const c of ['news','training','food','school']){const l=posts.filter(p=>p.category===c&&!shown.has(p.id)).slice(0,5);li('c-'+c,l.length?l.map(row).join(''):'<li class="muted">준비 중</li>');}
+ for(const c of ['news','training','food','school']){const l=byNew.filter(p=>p.category===c&&!shown.has(p.id)).slice(0,5);li('c-'+c,l.length?l.map(row).join(''):'<li class="muted">준비 중</li>');}
  const feed=posts.filter(p=>!p.is_staff).slice(0,6);li('h-feed',feed.length?feed.map(p=>'<li><a href="/board/?id='+p.id+'"><span class="t">'+E(p.title)+'</span><span class="m">'+E(p.nickname||'학부모')+'</span></a></li>').join(''):'<li class="muted">학부모 글이 게시되면 여기에 보입니다. <a href="/submit/?type=post">글쓰기</a></li>');
  /* ticker: upcoming events (date + name) + latest non-news posts; no headline repeats */
  const ds=x=>x?x.slice(5).replace('-','/'):'';const tkEv=V(P_ev).slice(0,2).map(e=>'<a href="/events/">'+ds(e.start_date)+' '+E(e.title)+'</a>');
- const tkPo=posts.filter(p=>!shown.has(p.id)&&p.category!=='news').slice(0,6).map(p=>'<a href="/board/?id='+p.id+'">'+E(p.title)+'</a>');
+ const tkPo=byNew.filter(p=>!shown.has(p.id)&&p.category!=='news').slice(0,6).map(p=>'<a href="/board/?id='+p.id+'">'+E(p.title)+'</a>');
  const tk=tkEv.concat(tkPo);if(tk.length){const h=tk.join('');li('ticker',h+h);}
 }catch(e){}
 try{let ev=V(P_ev);if(ev.length<3){ev=ev.concat(V(P_evp).slice(0,6-ev.length));}
