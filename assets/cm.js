@@ -10,7 +10,7 @@ window.CM=(function(){
   const CAT={club:'클럽 고르기',cost:'비용·시간',tournament:'대회',position:'포지션·체격',injury:'부상·성장',gear:'용품',school:'진학',other:'기타'};
   const PCAT={news:'대회·소식',training:'훈련',food:'음식·영양',school:'학교·진학',gear:'용품',free:'자유'};
   const LV={pro:'프로',college:'대학',national:'국가대표',retired:'은퇴'};
-  const d=s=>{if(!s)return '';const x=new Date(s);return x.getFullYear()+'.'+String(x.getMonth()+1).padStart(2,'0')+'.'+String(x.getDate()).padStart(2,'0');};
+  const d=s=>{if(!s)return '';if(/^\d{4}-\d{2}-\d{2}$/.test(s))return s.replace(/-/g,'.');const x=new Date(new Date(s).getTime()+9*36e5);return x.getUTCFullYear()+'.'+String(x.getUTCMonth()+1).padStart(2,'0')+'.'+String(x.getUTCDate()).padStart(2,'0');};
   const dr=(a,b)=>b&&b!==a?d(a)+' – '+d(b):d(a);
   const qp=k=>new URLSearchParams(location.search).get(k)||'';
   const link=s=>E(s).replace(/(https?:\/\/[^\s<)]+)/g,u=>'<a href="'+u+'" target="_blank" rel="noopener noreferrer">'+u.replace(/^https?:\/\//,'')+'</a>');

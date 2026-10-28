@@ -44,7 +44,7 @@
 </div>
 <div class="ft-bottom"><span>© 2026 A.P HOLDINGS · SPORTS DIVISION</span><span>회원 가입 없음 · 아동 개인정보 미수집 · 성인 공인 선수 정보만 게시 · 정정·삭제 요청 즉시 처리</span></div>
 </div></footer>
-<script src="/assets/cm.js?v=4"></script>
+<script src="/assets/cm.js?v=5"></script>
 <script>
 (async()=>{const t=new Date().toISOString().slice(0,10);try{const up=await CM.get('cm_events_public','select=*&start_date=gte.'+t+'&order=start_date.asc');const past=await CM.get('cm_events_public','select=*&start_date=lt.'+t+'&order=start_date.desc&limit=30');
 document.getElementById('up').innerHTML=up.length?up.map(e=>CM.eventItem(e,false)).join(''):'<div class="empty">예정된 대회가 아직 없어요. 참가 요강을 받으셨다면 <a href="/submit/?type=event">제보</a>해 주세요.</div>';
