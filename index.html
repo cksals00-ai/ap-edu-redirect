@@ -146,10 +146,10 @@ try{const posts=V(P_posts);
  /* 헤드라인: 고정글(7일) > 최근 3일 요약 기사(본문 300자 이상) > 최근 소식 */
  const rich=p=>(p.body||'').length>=300;
  const lead=byNew.find(p=>p.pinned&&age(p)<7)||byNew.find(p=>p.category==='news'&&age(p)<3&&rich(p))||byNew.find(p=>age(p)<7&&rich(p))||byNew.find(p=>p.category==='news')||byNew[0];
- if(lead){shown.add(lead.id);const L=document.getElementById('lead');L.href='/board/?id='+lead.id;L.querySelector('h2').textContent=lead.title;{const b=lead.body.replace(/\n{3,}/g,'\n\n').trim();const cut=420;L.querySelector('p').textContent=b.length>cut?b.slice(0,cut).replace(/\s+\S*$/,'')+'…':b;}L.querySelector('.meta').textContent=(CM.PCAT[lead.category]||'')+' · '+d(lead.created_at)+(lead.source?' · '+lead.source:'');}
+ if(lead){shown.add(lead.id);const L=document.getElementById('lead');L.href='/board/?id='+lead.id;L.querySelector('h2').textContent=lead.title;{const b=lead.body.replace(/\n{3,}/g,'\n\n').trim();const cut=260;L.querySelector('p').textContent=b.length>cut?b.slice(0,cut).replace(/\s+\S*$/,'')+'…':b;}L.querySelector('.meta').textContent=(CM.PCAT[lead.category]||'')+' · '+d(lead.created_at)+(lead.source?' · '+lead.source:'');}
  /* sub-stories: one per category first (variety), then newest */
  /* sub-stories: 최근 7일 글 먼저(분류 골고루), 모자라면 예전 글로 채움 */
- const subs=[],add=p=>{if(p&&subs.length<4&&!shown.has(p.id)){subs.push(p);shown.add(p.id);}};
+ const subs=[],add=p=>{if(p&&subs.length<5&&!shown.has(p.id)){subs.push(p);shown.add(p.id);}};
  const recent=byNew.filter(p=>age(p)<7),cats=['news','training','food','school','gear','free'];
  for(const c of cats)add(recent.find(x=>x.category===c&&!shown.has(x.id)));
  recent.forEach(add);
