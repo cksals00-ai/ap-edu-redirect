@@ -20,6 +20,20 @@
 .shz__sizes .chip{justify-content:center;padding:8px 0;font-family:var(--f-mono)}
 .shz .plist .m b{color:var(--flag);font-weight:700}
 @media(max-width:760px){.shz{grid-template-columns:minmax(0,1fr);padding:18px}}
+.lead-wrap{display:flex;flex-direction:column;border-right:1.5px solid var(--ink);background:linear-gradient(135deg,var(--white) 0,var(--paper-2) 100%)}
+.lead-wrap .lead-story{border-right:0;background:none;flex:1 1 auto}
+.lead-story p{white-space:pre-line}
+.ls-more{display:inline-block;margin-top:14px;font-size:13.5px;font-weight:700;color:var(--flag)}
+.lead-ev{border-top:1px solid var(--line);padding:14px 28px 18px}
+.lead-ev__h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.lead-ev__h span{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.18em;color:var(--flag)}
+.lead-ev__h a{font-size:12.5px;color:var(--muted)}
+.lead-ev ul{list-style:none;margin:0;padding:0}
+.lead-ev li a{display:flex;gap:14px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:14px;line-height:1.4}
+.lead-ev li:last-child a{border-bottom:0}
+.lead-ev .d{font-family:var(--f-mono);font-size:12.5px;color:var(--flag);white-space:nowrap;min-width:84px}
+.lead-ev .r{margin-left:auto;color:var(--muted);font-size:12.5px;white-space:nowrap}
+@media(max-width:860px){.lead-wrap{border-right:0;border-bottom:1.5px solid var(--ink)}.lead-wrap .lead-story{border-bottom:0}.lead-ev{padding:12px 18px 16px}}
 </style>
 </head>
 <body>
@@ -52,7 +66,7 @@
 <section class="section hero-sec"><div class="wrap">
 <p class="eyebrow" style="margin-bottom:12px">1st Q · 오늘의 소식</p>
 <div class="headline">
-<a class="lead-story" id="lead" href="/board/"><div class="ls-body"><span class="kicker">오늘의 헤드라인</span><h2>불러오는 중…</h2><p></p><div class="meta"></div></div></a>
+<div class="lead-wrap"><a class="lead-story" id="lead" href="/board/"><div class="ls-body"><span class="kicker">오늘의 헤드라인</span><h2>불러오는 중…</h2><p></p><div class="meta"></div><span class="ls-more">기사 전체 보기 →</span></div></a><div class="lead-ev" id="lead-ev" hidden><div class="lead-ev__h"><span>이번 주 · 다음 주 대회</span><a href="/events/">대회 캘린더 →</a></div><ul id="lead-ev-list"></ul></div></div>
 <div class="sub-stories" id="subs"></div>
 </div>
 <div class="bnr" id="bnr" aria-label="기획·안내"></div>
@@ -129,8 +143,10 @@ try{const posts=V(P_posts);
  const now=Date.now(),age=p=>(now-new Date(p.created_at))/864e5;
  const byNew=[...posts].sort((a,b)=>String(b.created_at).localeCompare(String(a.created_at)));
  /* 고정글은 7일까지만 헤드라인, 그 뒤엔 최신 소식 */
- const lead=byNew.find(p=>p.pinned&&age(p)<7)||byNew.find(p=>p.category==='news')||byNew[0];
- if(lead){shown.add(lead.id);const L=document.getElementById('lead');L.href='/board/?id='+lead.id;L.querySelector('h2').textContent=lead.title;L.querySelector('p').textContent=lead.body.slice(0,160)+(lead.body.length>160?'…':'');L.querySelector('.meta').textContent=(CM.PCAT[lead.category]||'')+' · '+d(lead.created_at)+(lead.source?' · '+lead.source:'');}
+ /* 헤드라인: 고정글(7일) > 최근 3일 요약 기사(본문 300자 이상) > 최근 소식 */
+ const rich=p=>(p.body||'').length>=300;
+ const lead=byNew.find(p=>p.pinned&&age(p)<7)||byNew.find(p=>p.category==='news'&&age(p)<3&&rich(p))||byNew.find(p=>age(p)<7&&rich(p))||byNew.find(p=>p.category==='news')||byNew[0];
+ if(lead){shown.add(lead.id);const L=document.getElementById('lead');L.href='/board/?id='+lead.id;L.querySelector('h2').textContent=lead.title;{const b=lead.body.replace(/\n{3,}/g,'\n\n').trim();const cut=420;L.querySelector('p').textContent=b.length>cut?b.slice(0,cut).replace(/\s+\S*$/,'')+'…':b;}L.querySelector('.meta').textContent=(CM.PCAT[lead.category]||'')+' · '+d(lead.created_at)+(lead.source?' · '+lead.source:'');}
  /* sub-stories: one per category first (variety), then newest */
  /* sub-stories: 최근 7일 글 먼저(분류 골고루), 모자라면 예전 글로 채움 */
  const subs=[],add=p=>{if(p&&subs.length<4&&!shown.has(p.id)){subs.push(p);shown.add(p.id);}};
@@ -148,6 +164,7 @@ try{const posts=V(P_posts);
  const tkPo=byNew.filter(p=>!shown.has(p.id)&&p.category!=='news').slice(0,6).map(p=>'<a href="/board/?id='+p.id+'">'+E(p.title)+'</a>');
  const tk=tkEv.concat(tkPo);if(tk.length){const h=tk.join('');li('ticker',h+h);}
 }catch(e){}
+try{const up=V(P_ev).slice(0,4);if(up.length){const dsx=x=>x?x.slice(5).replace('-','.'):'';li('lead-ev-list',up.map(e=>'<li><a href="/events/"><span class="d">'+dsx(e.start_date)+(e.end_date&&e.end_date!==e.start_date?'–'+dsx(e.end_date):'')+'</span><span>'+E(e.title)+'</span><span class="r">'+E(e.region||'')+'</span></a></li>').join(''));document.getElementById('lead-ev').hidden=false;}}catch(e){}
 try{let ev=V(P_ev);if(ev.length<3){ev=ev.concat(V(P_evp).slice(0,6-ev.length));}
  const ds=x=>x?x.slice(5).replace('-','.'):'';const dr2=(a,b)=>b&&b!==a?ds(a)+'–'+ds(b):ds(a);
  li('h-ev','<tbody>'+ev.map(e=>'<tr><td class="dt">'+dr2(e.start_date,e.end_date)+'</td><td><a href="/events/">'+E(e.title)+'</a></td><td class="muted">'+E(e.region||'')+'</td></tr>').join('')+'</tbody>');document.getElementById('sb-ev').textContent=V(P_ev).length+V(P_evp).length;}catch(e){}
