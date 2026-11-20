@@ -11,7 +11,7 @@
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/cm.css?v=5">
+<link rel="stylesheet" href="/assets/cm.css?v=6">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"CourtMate 코트메이트","url":"https://sports.apholdings.kr/","inLanguage":"ko","potentialAction":{"@type":"SearchAction","target":"https://sports.apholdings.kr/search/?q={q}","query-input":"required name=q"},"publisher":{"@type":"Organization","name":"A.P Holdings","url":"https://www.apholdings.kr/"}}</script>
 <style>
 .chg{margin:0 0 18px;padding:14px 16px;border:1.5px solid var(--ink);border-radius:var(--r);background:var(--white)}.chg b.t{display:block;font-size:14px;margin-bottom:6px}.chg ul{margin:0;padding-left:18px;font-size:13.5px;line-height:1.7}.chg .dn{color:var(--flag);font-weight:700}
@@ -68,7 +68,7 @@
 </div>
 <div class="ft-bottom"><span>© 2026 A.P HOLDINGS · SPORTS DIVISION</span><span>회원 가입 없음 · 아동 개인정보 미수집 · 성인 공인 선수 정보만 게시 · 정정·삭제 요청 즉시 처리</span></div>
 </div></footer>
-<script src="/assets/cm.js?v=5"></script>
+<script src="/assets/cm.js?v=6"></script>
 <script>
 (async()=>{const E=CM.E,d=CM.d;const SZ=[];for(let s=165;s<=260;s+=5)SZ.push(s);
 const KIND={PS:'리틀키즈',GS:'주니어',adult:'성인'};const won=n=>n==null?'':n.toLocaleString('ko-KR')+'원';
@@ -81,7 +81,7 @@ return (h?'<div class="go">'+h+'</div>':'<p class="when">확인된 판매 페이
 const eff=m=>m.chk_sale_price||m.chk_price||m.msrp||9e9;
 function card(m){let price;if(m.chk_price){price='<div class="price">'+(m.chk_sale_price?won(m.chk_sale_price)+'<s>'+won(m.chk_price)+'</s><span class="off">'+Math.round((1-m.chk_sale_price/m.chk_price)*100)+'% 할인</span>':won(m.chk_price))+'</div><div class="when">공식몰 '+(m.sold_out?'품절':'판매 중')+' · '+d(m.checked_at)+' 확인</div>';}
 else{price='<div class="price">'+won(m.msrp)+'</div><div class="when">정가(참고) · 가격은 판매처에서 확인</div>';}
-return '<article class="item shoe"><h3><span class="badge">'+KIND[m.kind]+'</span>'+E(m.model_name)+'</h3><div class="meta">'+E(m.brand)+' · '+E(m.line)+(m.style_code?' · '+E(m.style_code):'')+' · '+m.size_min+'~'+m.size_max+'mm</div>'+price+(m.note?'<p>'+E(m.note)+'</p>':'')+go(m)+'</article>';}
+return '<article class="item shoe"><h3><span class="badge">'+KIND[m.kind]+'</span>'+E(m.model_name)+'</h3><div class="meta">'+E(m.brand)+' · '+E(m.line)+(m.style_code?' · '+E(m.style_code):'')+' · '+m.size_min+'~'+m.size_max+'mm</div>'+price+(m.note?'<p>'+E(m.note)+'</p>':'')+go(m)+CM.bar('shoe',m.id,m.model_name,{fix:1})+'</article>';}
 const sb=document.getElementById('sizes'),bb=document.getElementById('brands'),box=document.getElementById('shoes'),sum=document.getElementById('summary');
 SZ.forEach(s=>{const b=document.createElement('button');b.className='chip';b.dataset.s=s;b.textContent=s;b.setAttribute('aria-pressed','false');sb.appendChild(b);});
 let all=[];try{all=await CM.get('cm_shoes_public','select=*&order=sort_order.asc');}catch(e){box.innerHTML='<div class="empty">잠시 후 다시 시도해 주세요.</div>';return;}

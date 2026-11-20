@@ -335,3 +335,22 @@ footer .wrap{display:block}
 .profile .jersey{position:static;display:inline-block;font-size:26px;vertical-align:4px;margin-left:8px}
 .profile .jersey::before{display:inline;margin-right:3px;font-size:11px}
 .filters small{font-family:var(--f-mono);font-size:11px;opacity:.7}
+/* 저마찰 참여 (2026-11-20) */
+.cmx{margin-top:12px}
+.rxrow{display:flex;flex-wrap:wrap;gap:6px}
+.rx{font:inherit;font-size:13px;line-height:1;padding:8px 11px;border:1px solid var(--line-strong);border-radius:999px;background:var(--white);color:var(--ink);cursor:pointer}
+.rx b{font-weight:800;margin-left:2px}
+.rx.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.rx--txt{border-style:dashed;color:var(--muted)}
+.rx:focus-visible{outline:2px solid var(--flag);outline-offset:2px}
+.rxform{margin-top:10px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
+.rxform form{display:grid;gap:8px}
+.rxform textarea,.rxform input[type=text],.rxform input:not([type]){font:inherit;font-size:14px;padding:9px 10px;border:1px solid var(--line-strong);border-radius:8px;background:var(--white);width:100%;box-sizing:border-box}
+.cmx .rxq{border:0;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:14px;min-width:0}
+.cmx .rxq legend{display:block;width:100%;float:none;font-weight:700;margin:0 0 4px;padding:0;font-size:13px}
+.cmx .rxq label{display:inline-flex;align-items:center;gap:5px;width:auto;margin:0;padding:6px 11px;border:1px solid var(--line-strong);border-radius:999px;background:var(--white);font-weight:500;font-size:13px;cursor:pointer}
+.cmx .rxq input[type=radio]{width:auto;height:auto;margin:0;padding:0;accent-color:var(--ink)}
+.cmx .rxq label:has(input:checked){background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.rxnote{font-size:12px;color:var(--muted);margin:0}
+.rxmsg{font-size:13px;color:var(--flag)}
+.rxdone{margin:0;font-weight:700;color:var(--teal)}

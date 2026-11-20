@@ -11,7 +11,7 @@
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/cm.css?v=5">
+<link rel="stylesheet" href="/assets/cm.css?v=6">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"CourtMate 코트메이트","url":"https://sports.apholdings.kr/","inLanguage":"ko","potentialAction":{"@type":"SearchAction","target":"https://sports.apholdings.kr/search/?q={q}","query-input":"required name=q"},"publisher":{"@type":"Organization","name":"A.P Holdings","url":"https://www.apholdings.kr/"}}</script>
 <script defer data-ap-analytics src="https://www.apholdings.kr/analytics/ap-analytics.js?v=20261029-counter1"></script></head>
 <body>
@@ -46,13 +46,13 @@
 </div>
 <div class="ft-bottom"><span>© 2026 A.P HOLDINGS · SPORTS DIVISION</span><span>회원 가입 없음 · 아동 개인정보 미수집 · 성인 공인 선수 정보만 게시 · 정정·삭제 요청 즉시 처리</span></div>
 </div></footer>
-<script src="/assets/cm.js?v=5"></script>
+<script src="/assets/cm.js?v=6"></script>
 <script>
 (async()=>{const id=CM.qp('id'),c=CM.qp('c');const cats=document.getElementById('b-cats');
 Object.entries(CM.PCAT).forEach(([k,v])=>{const a=document.createElement('a');a.className='chip';a.href='/board/?c='+k;a.textContent=v;a.setAttribute('aria-pressed',k===c);cats.appendChild(a);});if(c)cats.firstElementChild.setAttribute('aria-pressed','false');
 if(id){document.getElementById('b-list').hidden=true;const one=document.getElementById('b-one');one.hidden=false;
  try{const [p]=await CM.get('cm_posts_public','select=*&id=eq.'+encodeURIComponent(id));if(!p)throw 0;document.title=p.title+' — 코트메이트';
- one.innerHTML='<a class="back" href="/board/?c='+p.category+'">← '+CM.E(CM.PCAT[p.category]||'게시판')+'</a><span class="badge">'+CM.E(CM.PCAT[p.category]||p.category)+'</span><h1>'+CM.E(p.title)+'</h1><div class="meta">'+CM.E(p.nickname||'학부모')+' · '+CM.d(p.created_at)+(p.is_staff?' · 운영팀':'')+'</div><div class="body">'+CM.E(p.body)+'</div>'+(p.link_url||p.source?'<div class="src">'+(p.source?'출처: '+CM.E(p.source)+' ':'')+(p.link_url?'<a href="'+CM.E(p.link_url)+'" target="_blank" rel="noopener noreferrer">원문·링크 ↗</a>':'')+'</div>':'')+'<p class="note">일반 안내이며 진단·추천이 아닙니다. 정정 요청은 소개 페이지의 연락처로.</p>';}
+ one.innerHTML='<a class="back" href="/board/?c='+p.category+'">← '+CM.E(CM.PCAT[p.category]||'게시판')+'</a><span class="badge">'+CM.E(CM.PCAT[p.category]||p.category)+'</span><h1>'+CM.E(p.title)+'</h1><div class="meta">'+CM.E(p.nickname||'학부모')+' · '+CM.d(p.created_at)+(p.is_staff?' · 운영팀':'')+'</div><div class="body">'+CM.E(p.body)+'</div>'+(p.link_url||p.source?'<div class="src">'+(p.source?'출처: '+CM.E(p.source)+' ':'')+(p.link_url?'<a href="'+CM.E(p.link_url)+'" target="_blank" rel="noopener noreferrer">원문·링크 ↗</a>':'')+'</div>':'')+'<p class="note">일반 안내이며 진단·추천이 아닙니다. 정정 요청은 소개 페이지의 연락처로.</p>'+CM.bar('post',p.id,p.title,{k:['helpful']});}
  catch(e){one.innerHTML='<a class="back" href="/board/">← 게시판</a><div class="empty">글을 찾을 수 없어요.</div>';}return;}
 if(c&&CM.PCAT[c]){document.getElementById('b-title').textContent=CM.PCAT[c];}
 try{const posts=await CM.get('cm_posts_public','select=*'+(c?'&category=eq.'+c:'')+'&order=pinned.desc,created_at.desc&limit=100');document.getElementById('posts').innerHTML=posts.length?posts.map(CM.postItem).join(''):'<div class="empty">아직 글이 없어요. <a href="/submit/?type=post">첫 글</a>을 올려 주세요.</div>';}catch(e){document.getElementById('posts').innerHTML='<div class="empty">잠시 후 다시 시도해 주세요.</div>';}})();
