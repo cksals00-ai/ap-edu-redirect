@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>집 농구 10분 — 코트메이트</title>
+<meta name="description" content="초등 농구 아이를 위한 하루 10분 집 연습: 드리블·슈팅·패스·레이업 드릴 5개를 2분씩 안내하는 무료 타이머. 회원가입 없음.">
+<link rel="canonical" href="https://sports.apholdings.kr/drills/">
+<meta property="og:title" content="집 농구 10분 — 코트메이트"><meta property="og:description" content="초등 농구 아이를 위한 하루 10분 집 연습: 드리블·슈팅·패스·레이업 드릴 5개를 2분씩 안내하는 무료 타이머. 회원가입 없음."><meta property="og:type" content="website"><meta property="og:url" content="https://sports.apholdings.kr/shoes/"><meta property="og:site_name" content="CourtMate 코트메이트"><meta property="og:image" content="https://sports.apholdings.kr/assets/img/hero.jpg">
+<meta name="theme-color" content="#0B1526">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/cm.css?v=6">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"CourtMate 코트메이트","url":"https://sports.apholdings.kr/","inLanguage":"ko","potentialAction":{"@type":"SearchAction","target":"https://sports.apholdings.kr/search/?q={q}","query-input":"required name=q"},"publisher":{"@type":"Organization","name":"A.P Holdings","url":"https://www.apholdings.kr/"}}</script>
+<script defer data-ap-analytics src="https://www.apholdings.kr/analytics/ap-analytics.js?v=20261029-counter1"></script></head>
+<body>
+<a class="skip" href="#main">본문으로 이동</a>
+<div class="topline"><div class="wrap"><span>A.P HOLDINGS · <b>SPORTS DIVISION</b><i> · 유소년 농구 정보 포털</i></span><span id="topdate">회원가입 없음 · 아동 개인정보 미수집</span></div></div>
+<header class="hdr">
+<div class="wrap hdr__in"><a class="brand" href="/" aria-label="코트메이트 홈"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#C7202B"/><path d="M2 16h28M16 2v28M7.4 5.2c5.4 4.6 5.4 17 0 21.6M24.6 5.2c-5.4 4.6-5.4 17 0 21.6" stroke="#0B1526" stroke-width="1.5" fill="none"/></svg><span class="brand__txt">COURT<i>MATE</i></span><span class="brand__kr">코트메이트 · 유소년 농구</span></a><nav class="nav" aria-label="주 메뉴"><a href="/events/">대회 캘린더</a><a href="/clubs/">클럽 찾기</a><a href="/schools/">학교 백과</a><a href="/players/">선수 백과</a><a href="/board/">게시판</a><a href="/shoes/">농구화 찾기</a><a href="/qna/">질문과 답</a></nav>
+<form class="sf srch" role="search"><input type="search" placeholder="선수·학교·클럽·대회·글 검색" aria-label="검색"><button type="submit" aria-label="검색">SEARCH</button></form>
+<a class="btn btn--flag btn--sm hdr__cta" href="/submit/">글쓰기·제보</a></div>
+<div class="mnav"><nav class="mnav__rail" aria-label="주 메뉴(모바일)"><a href="/events/">대회 캘린더</a><a href="/clubs/">클럽 찾기</a><a href="/schools/">학교 백과</a><a href="/players/">선수 백과</a><a href="/board/">게시판</a><a href="/shoes/">농구화 찾기</a><a href="/qna/">질문과 답</a><a href="/about/">소개</a><a class="cta" href="/submit/">글쓰기·제보</a></nav></div>
+</header>
+<main id="main">
+<section class="pagetop"><div class="pagetop__bg"><img src="/assets/img/dark-gym.jpg" alt=""></div><div class="wrap pagetop__in"><p class="crumb"><a href="/">COURTMATE</a> / <b>집 농구 10분</b></p><h1>집 농구 10분</h1><p class="lede">드릴 5개 × 2분. 매일 같은 순서로 짧게 — 타이머가 다음 드릴을 알려 줘요.</p></div></section>
+<section class="wrap" style="padding:24px 0 40px">
+<style>
+.dr-timer{border:2px solid var(--ink);border-radius:var(--r);background:var(--white);padding:18px;margin:0 0 20px;text-align:center}
+.dr-timer .now{font-size:15px;font-weight:700;margin-bottom:4px}
+.dr-timer .clock{font-family:var(--f-mono);font-size:56px;line-height:1.1;margin:6px 0}
+.dr-timer .hint{font-size:14px;color:var(--muted);min-height:2.6em}
+.dr-timer .bar{height:8px;background:var(--paper);border-radius:99px;overflow:hidden;margin:10px 0}.dr-timer .bar i{display:block;height:100%;width:0;background:var(--flag);transition:width .3s}
+.dr-timer .ctl{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.dr-timer button{border:1.5px solid var(--ink);border-radius:999px;padding:8px 16px;font-weight:700;background:var(--paper);cursor:pointer;font-size:14px}
+.dr-timer button.main{background:var(--ink);color:var(--paper)}
+.dr-list{display:grid;gap:10px;margin:0 0 20px}
+.dr{border:1.5px solid var(--ink);border-radius:var(--r);background:var(--white);padding:12px 14px}
+.dr.on{outline:3px solid var(--flag)}
+.dr b{font-size:15px}.dr .m{font-size:13.5px;margin:4px 0 2px}.dr .s{font-size:12.5px;color:var(--muted)}
+.dr-log{border:1.5px dashed var(--ink);border-radius:var(--r);padding:12px 14px;font-size:14px}
+.dr-log .days{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px}.dr-log .days span{width:22px;height:22px;border-radius:4px;background:#e4dfd3;border:1px solid #cfc8b8;display:inline-block}.dr-log .days span.y{background:var(--flag)}
+</style>
+<div class="dr-timer" aria-live="polite">
+ <div class="now" id="drNow">준비됐나요? 시작을 누르세요</div>
+ <div class="clock" id="drClock">10:00</div>
+ <div class="hint" id="drHint">드릴 5개를 2분씩, 총 10분이에요.</div>
+ <div class="bar"><i id="drBar"></i></div>
+ <div class="ctl"><button class="main" id="drStart">시작</button><button id="drPause">잠깐 멈춤</button><button id="drSkip">다음 드릴</button><button id="drReset">처음부터</button></div>
+</div>
+<div class="dr-list" id="drList"></div>
+<div class="dr-log"><b>이 기기에서의 기록</b> — 10분을 끝까지 한 날이 표시돼요(최근 28일). 기록은 이 브라우저에만 저장되고 서버로 보내지 않아요.<div class="days" id="drDays"></div><div id="drStreak" style="margin-top:6px"></div></div>
+<p class="legend" style="margin-top:16px">층간소음이 적은 시간·장소를 골라 주세요. 드리블은 매트 위에서 하면 소리가 줄어요. 통증이나 어지러움이 있으면 바로 멈추세요.<br>자세한 설명과 체험수업 질문지·대회 안내는 <b>「처음 농구 시키는 학부모 가이드」</b>에 정리했어요(준비 중).</p>
+</section>
+<script>
+(function(){
+var D=[
+ {t:'제자리 파운드 드리블',m:'오른손 30초 → 왼손 30초, 2세트. 무릎을 굽히고 공을 허리 아래로 세게.',s:'잘하고 있다는 신호: 공을 보지 않고 앞을 봐요',cue:['오른손','왼손','오른손','왼손']},
+ {t:'V 드리블',m:'몸 앞에서 공을 V자로 좌우 왕복. 손별 30초씩 2세트.',s:'신호: 공이 몸에서 멀어지지 않아요',cue:['오른손','왼손','오른손','왼손']},
+ {t:'폼 슈팅(벽 슈팅)',m:'벽 앞 1m, 한 손으로 위로 쏘듯 던지고 손목을 꺾어요. 20회.',s:'신호: 공이 뒤로 돌아요(백스핀)',cue:['천천히 10회','손목 끝까지 10회','','']},
+ {t:'벽 패스',m:'벽에서 2~3m, 가슴 패스 → 받기. 30초 하고 잠깐 숨 고르기.',s:'신호: 패스 뒤 엄지가 아래로 향해요',cue:['가슴 패스','숨 고르기','가슴 패스','숨 고르기']},
+ {t:'레이업 스텝',m:'공 없이 「오른발-왼발-점프」 10회, 반대쪽 10회.',s:'신호: 마지막 점프가 위로 높게 떠요',cue:['오른손 레이업 스텝','오른손 레이업 스텝','왼손 레이업 스텝','왼손 레이업 스텝']}
+];
+var SEG=120,i=0,left=SEG,run=null,K='cm_drill_days';
+var L=document.getElementById('drList');
+L.innerHTML=D.map(function(d,k){return '<div class="dr" id="dr'+k+'"><b>'+(k+1)+'. '+d.t+'</b> <span class="s">2분</span><div class="m">'+d.m+'</div><div class="s">'+d.s+'</div></div>'}).join('');
+function fmt(s){var a=Math.floor(s/60),b=s%60;return a+':'+(b<10?'0':'')+b}
+function beep(f){try{var c=new (window.AudioContext||window.webkitAudioContext)(),o=c.createOscillator(),g=c.createGain();o.frequency.value=f||880;o.connect(g);g.connect(c.destination);g.gain.value=.15;o.start();setTimeout(function(){o.stop();c.close()},220)}catch(e){}}
+function total(){return (D.length-i-1)*SEG+left}
+function draw(){
+ for(var k=0;k<D.length;k++)document.getElementById('dr'+k).className='dr'+(k===i&&run!==undefined?' on':'');
+ document.getElementById('drClock').textContent=fmt(left);
+ document.getElementById('drBar').style.width=((D.length*SEG-total())/(D.length*SEG)*100)+'%';
+ if(i<D.length){var d=D[i],q=d.cue[Math.min(3,Math.floor((SEG-left)/30))];document.getElementById('drNow').textContent=(i+1)+'/5 · '+d.t;document.getElementById('drHint').textContent=(q?q+' — ':'')+d.m}
+}
+function tick(){left--;if(left>0&&left%30===0)beep(660);if(left<=0){beep(990);i++;left=SEG;if(i>=D.length){done();return}}draw()}
+function start(){if(run)return;if(i>=D.length){i=0;left=SEG}run=setInterval(tick,1000);beep(880);draw()}
+function pause(){clearInterval(run);run=null}
+function done(){pause();i=D.length;document.getElementById('drNow').textContent='오늘 10분 끝! 잘했어요';document.getElementById('drHint').textContent='내일도 같은 순서로 해 봐요.';document.getElementById('drClock').textContent='0:00';document.getElementById('drBar').style.width='100%';save();days()}
+function today(){var d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()}
+function get(){try{return JSON.parse(localStorage.getItem(K)||'[]')}catch(e){return[]}}
+function save(){try{var a=get();if(a.indexOf(today())<0){a.push(today());localStorage.setItem(K,JSON.stringify(a.slice(-60)))}}catch(e){}}
+function days(){var a=get(),h='',st=0,run2=true;for(var n=27;n>=0;n--){var d=new Date();d.setDate(d.getDate()-n);var k=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();h+='<span class="'+(a.indexOf(k)>=0?'y':'')+'" title="'+k+'"></span>'}
+ for(var m=0;m<60;m++){var e=new Date();e.setDate(e.getDate()-m);var k2=e.getFullYear()+'-'+(e.getMonth()+1)+'-'+e.getDate();if(a.indexOf(k2)>=0)st++;else if(m>0)break}
+ document.getElementById('drDays').innerHTML=h;document.getElementById('drStreak').textContent=st?('연속 '+st+'일째!'):'오늘 첫 기록을 남겨 보세요.'}
+document.getElementById('drStart').onclick=start;
+document.getElementById('drPause').onclick=pause;
+document.getElementById('drSkip').onclick=function(){i++;left=SEG;if(i>=D.length){done();return}draw()};
+document.getElementById('drReset').onclick=function(){pause();i=0;left=SEG;draw();document.getElementById('drNow').textContent='준비됐나요? 시작을 누르세요'};
+draw();days();
+})();
+</script>
+</main>
+
+<footer><div class="wrap">
+<div class="ft-cta"><h3>농구하는 아이를 둔 부모가 만든, 부모를 위한 장.<br>글·질문·제보는 회원가입 없이 올립니다.</h3><a class="btn btn--flag" href="/submit/">글쓰기·제보 →</a></div>
+<div class="ft-grid">
+<div><b class="brand__txt">COURT<i>MATE</i></b><p>유소년 농구 정보 포털. 대회·클럽·학교·선수·훈련·영양 정보를 한곳에 모읍니다. 소식 글은 공개 자료를 운영팀이 정리한 것이며 원문 링크를 제공합니다. 선수 정보는 KBL 공식 등록 선수 명단 등 공개 자료를 바탕으로 하며 KBL·구단과 무관한 비공식 정보 서비스입니다.</p></div>
+<div><b>바로가기</b><a href="/board/">게시판</a><a href="/shoes/">농구화 찾기</a><a href="/drills/">집 농구 10분</a><a href="/clubs/">클럽 찾기</a><a href="/events/">대회 캘린더</a><a href="/qna/">질문과 답</a><a href="/schools/">학교 백과</a><a href="/players/">선수 백과</a></div>
+<div><b>참여</b><a href="/submit/?type=post">글쓰기</a><a href="/submit/?type=question">질문하기</a><a href="/submit/?type=club">클럽 등록·제보</a><a href="/submit/?type=event">대회 제보</a><a href="/submit/?type=player">선수·학교 제보</a></div>
+<div><b>운영</b><a href="/about/">소개·운영 원칙</a><a href="/privacy/">개인정보 처리방침</a><a href="https://www.apholdings.kr/ko/sports/">A.P Holdings Sports</a><a href="https://apps.apple.com/kr/app/id6803709958" target="_blank" rel="noopener noreferrer">The Other Hours 앱 ↗</a></div>
+</div>
+<div class="ft-bottom"><span>© 2026 A.P HOLDINGS · SPORTS DIVISION</span><span>회원 가입 없음 · 아동 개인정보 미수집 · 성인 공인 선수 정보만 게시 · 정정·삭제 요청 즉시 처리</span></div>
+</div></footer>
+<script src="/assets/cm.js?v=6"></script>
+</body>
+</html>
